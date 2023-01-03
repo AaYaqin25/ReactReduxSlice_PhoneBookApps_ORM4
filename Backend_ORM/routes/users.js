@@ -63,7 +63,9 @@ router.get('/', async function (req, res, next) {
       const { count, rows } = await models.User.findAndCountAll({
         order: [
           ["id", "ASC"]
-        ]
+        ],
+        limit: limit,
+        offset: offset
       })
       const totalPage = Math.ceil(count / limit)
       res.json(new Response({ result: rows, page: page, totalPage: totalPage, offset }))

@@ -5,7 +5,6 @@ const request = axios.create({
     headers: { 'Authorization': 'token' }
 });
 
-
 export const loadUser = () => request.get('users')
 
 export const addUser = (name, phone) => request.post('users', { name, phone })

@@ -1,9 +1,10 @@
-import React, {  useState } from "react";
-// import { useDispatch } from 'react-redux'
+import React, { useState, useCallback } from "react";
+import { useDispatch } from 'react-redux'
+import { search } from "./userSlice";
 
 export default function UserFormSearch(props) {
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const [user, setUser] = useState({
         name: '',
         phone: ''
@@ -21,14 +22,14 @@ export default function UserFormSearch(props) {
     }
 
 
-    // const handleSubmit = useCallback((event) => {
-    //     // event.preventDefault();
-    //     // dispatch(searchUser({ name: user.name, phone: user.phone }))
-    //     // setUser({ name: '', phone: '' })
-    // }, [user])
+    const handleSubmit = useCallback((event) => {
+        event.preventDefault();
+        dispatch(search({ name: user.name, phone: user.phone }))
+        setUser({ name: '', phone: '' })
+    }, [dispatch, user])
 
     return (
-        <form >
+        <form onSubmit={handleSubmit}>
             <div className="row g-1 align-items-center">
                 <div className="col-auto">
                     <label htmlFor="name" className="col-form-label">Name</label>
