@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { useDispatch } from 'react-redux'
-import { search } from "./userSlice";
+import { reset, search } from "./userSlice";
 
 export default function UserFormSearch(props) {
 
@@ -25,9 +25,12 @@ export default function UserFormSearch(props) {
     const handleSubmit = useCallback((event) => {
         event.preventDefault();
         dispatch(search({ name: user.name, phone: user.phone }))
-        setUser({ name: '', phone: '' })
     }, [dispatch, user])
 
+    const handleResetSearch =() => {
+        dispatch(reset())
+        setUser({ name: '', phone: '' })
+    }
     return (
         <form onSubmit={handleSubmit}>
             <div className="row g-1 align-items-center">
@@ -46,6 +49,7 @@ export default function UserFormSearch(props) {
                 </div>
                 <div className="col-auto">
                     <button className='btn btn-primary' ><i className="fa-regular fa-circle-check"></i> search</button>
+                    <button className='btn btn-dark' onClick={handleResetSearch}><i className="fa-solid fa-rotate"></i> reset</button>
                 </div>
             </div>
         </form>
